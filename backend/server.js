@@ -26,6 +26,17 @@ app.use(cors());
     console.error('MongoDB connection error:', err);
   });
 
+// Define the Drive schema
+const driveSchema = new mongoose.Schema({
+  companyName: String,
+  driveDate: String,
+  type: String,
+  ctc: String,
+  status: {
+    appliedCount: { type: Number, default: 0 },
+    hiredCount: { type: Number, default: 0 },
+  },
+});  
 
 // Define Student Schema
 const studentSchema = new mongoose.Schema({
@@ -40,6 +51,8 @@ const studentSchema = new mongoose.Schema({
 // Create the Student Model
 const Student = mongoose.model("Student", studentSchema);
 
+// Create the Drive model
+const Drive = mongoose.model('Drive', driveSchema);
 
 
 // Register Route
@@ -142,9 +155,31 @@ app.post('/api/placement-login', async (req, res) => {
   res.json({ token });
 });
 
+// Routes
+app.post('/api/drives', async (req, res) => {
+  try {
+    const newDrive = new Drive(req.body);
+    await newDrive.save();
+    res.status(201).json({ message: 'Drive created successfully', data: newDrive });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create drive', details: err });
+  }
+});
+
+// Fetch drives
+app.get('/api/drives', async (req, res) => {
+  try {
+    const drives = await Drive.find(); // Fetch all drives from DB
+    console.log("Fetched drives:", drives);  // Log the drives fetched
+    res.status(200).json(drives);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch drives', details: err });
+  }
+});
+
 
 // Server Start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log('Server is running on port ${PORT}');
 });
