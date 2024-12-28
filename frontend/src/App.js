@@ -17,36 +17,46 @@ import PlacementDashboard from './components/PlacementDashboard';
 import UploadDrive from './components/UploadDrive';
 import StudentDrive from './components/StudentDrive';
 import DiscussionForum from './components/DiscussionForum';
+import StudentExperience from './components/StudentExperience';
+import UploadSE from './components/UploadSE';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userType, setUserType] = useState(null); // Store user type: 'student' or 'placement'
+ // const [username, setUsername] = useState(null); // Store username
 
   // Check login status when the app first loads
   useEffect(() => {
     // Check if the token and user type exist in localStorage
     const token = localStorage.getItem('token');
     const type = localStorage.getItem('userType');  // student or placement
+   // const storedUsername = localStorage.getItem('username'); // Retrieve the username
+   
     if (token && type) {
       setLoggedIn(true);
       setUserType(type);
+     // setUsername(storedUsername); // Set username from localStorage
     }
   }, []);
 
-  // Handle login (e.g., set token and user type in localStorage and update loggedIn state)
-  const handleLogin = (type) => {
+  // Handle login (e.g., set token, user type, and username in localStorage and update loggedIn state)
+  const handleLogin = (type, userName) => {
     localStorage.setItem('token', 'your-token'); // Set the token (you may want to set an actual token)
     localStorage.setItem('userType', type); // Set user type (student or placement)
+    localStorage.setItem('username', userName); // Set username in localStorage
     setLoggedIn(true);
     setUserType(type);
+    //setUsername(userName); // Update the username state
   };
 
-  // Handle logout (remove token and user type, update loggedIn state)
-  const handleLogout = () => {
+   // Handle logout (remove token, user type, and username, update loggedIn state)
+   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
+    localStorage.removeItem('username'); // Remove username from localStorage
     setLoggedIn(false);
     setUserType(null);
+    //setUsername(null); // Clear username state
   };
 
  
@@ -72,6 +82,8 @@ function App() {
             <Route path="/upload-drive" element={userType === 'placement' ? <UploadDrive /> : <div className="text-center mt-5">Unauthorized Access</div>} />
             <Route path="/student-drive" element={userType === 'student' ? <StudentDrive /> : <div className="text-center mt-5">Unauthorized Access</div>} />
             <Route path="/discussion-forum" element={<DiscussionForum />} />
+            <Route path="/student-experience" element={userType === 'placement' ? <StudentExperience /> : <div className="text-center mt-5">Unauthorized Access</div>} />
+            <Route path="/upload-student-experience" element={<UploadSE /> } />
             
           </Routes>
         </div>
