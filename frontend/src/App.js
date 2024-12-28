@@ -14,7 +14,9 @@ import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
 import StudentDashboard from './components/StudentDashboard';
 import PlacementDashboard from './components/PlacementDashboard';
-
+import UploadDrive from './components/UploadDrive';
+import StudentDrive from './components/StudentDrive';
+import DiscussionForum from './components/DiscussionForum';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -67,7 +69,10 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard" element={userType === 'student' ? <StudentDashboard /> : <PlacementDashboard />} />
-      
+            <Route path="/upload-drive" element={userType === 'placement' ? <UploadDrive /> : <div className="text-center mt-5">Unauthorized Access</div>} />
+            <Route path="/student-drive" element={userType === 'student' ? <StudentDrive /> : <div className="text-center mt-5">Unauthorized Access</div>} />
+            <Route path="/discussion-forum" element={<DiscussionForum />} />
+            
           </Routes>
         </div>
 
