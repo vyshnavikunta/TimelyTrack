@@ -18,15 +18,16 @@ function DiscussionForum() {
     e.preventDefault();
     if (!newMessage.trim()) return;
 
-    fetch('/api/messages', {
+    // Send the new message to the backend
+    fetch('http://localhost:5000/api/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: newMessage, author: "Your Name" }),
+      body: JSON.stringify({ content: newMessage, author: "Your Name" }), // You can use the logged-in user's name here
     })
       .then((res) => res.json())
       .then((message) => {
-        setMessages([...messages, message]); // Update messages
-        setNewMessage(''); // Clear input
+        setMessages([...messages, message]); // Update messages with the new message
+        setNewMessage(''); // Clear the input field
       })
       .catch((err) => console.error('Error posting message:', err));
   };

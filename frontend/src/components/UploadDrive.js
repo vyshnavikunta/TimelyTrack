@@ -35,11 +35,11 @@ function UploadDrive() {
   };
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">Upload Drive Details</h1>
-      <form onSubmit={handleSubmit} className="card shadow p-4">
+    <div className="container mt-5" style={{ maxWidth: '600px' }}>
+      <h1 className="text-center mb-4 fw-bold text-primary">Upload Drive Details</h1>
+      <form onSubmit={handleSubmit} className="card shadow-lg p-4 border-0 rounded-3">
         <div className="mb-3">
-          <label htmlFor="companyName" className="form-label">
+          <label htmlFor="companyName" className="form-label fw-semibold">
             Company Name
           </label>
           <input
@@ -48,13 +48,14 @@ function UploadDrive() {
             name="companyName"
             value={formData.companyName}
             onChange={handleInputChange}
-            className="form-control"
+            className="form-control shadow-sm"
+            placeholder="Enter company name"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="driveDate" className="form-label">
+          <label htmlFor="driveDate" className="form-label fw-semibold">
             Drive Date
           </label>
           <input
@@ -63,13 +64,13 @@ function UploadDrive() {
             name="driveDate"
             value={formData.driveDate}
             onChange={handleInputChange}
-            className="form-control"
+            className="form-control shadow-sm"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="type" className="form-label">
+          <label htmlFor="type" className="form-label fw-semibold">
             Drive Type
           </label>
           <select
@@ -77,7 +78,7 @@ function UploadDrive() {
             name="type"
             value={formData.type}
             onChange={handleInputChange}
-            className="form-select"
+            className="form-select shadow-sm"
             required
           >
             <option value="">Select</option>
@@ -88,8 +89,8 @@ function UploadDrive() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="ctc" className="form-label">
-            CTC
+          <label htmlFor="ctc" className="form-label fw-semibold">
+            CTC (Cost to Company)
           </label>
           <input
             type="text"
@@ -97,12 +98,13 @@ function UploadDrive() {
             name="ctc"
             value={formData.ctc}
             onChange={handleInputChange}
-            className="form-control"
+            className="form-control shadow-sm"
+            placeholder="Enter CTC amount"
             required
           />
         </div>
 
-        <button type="submit" className="btn btn-primary w-100">
+        <button type="submit" className="btn btn-primary w-100 fw-bold py-2 shadow">
           Submit
         </button>
       </form>
