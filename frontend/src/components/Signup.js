@@ -192,7 +192,7 @@ const Register = () => {
             </form>
             <p className="mt-3 text-center">
               Have an Account?{" "}
-              <a href="/login" className="text-primary">
+              <a href="/student-login" className="text-primary">
                 Sign in here!
               </a>
             </p>

@@ -1,71 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// src/components/StudentDashboard.js
+
+import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import '../StudentDashboard.css'; // Import custom CSS for animations
 
 function StudentDashboard() {
-  const [videos, setVideos] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:5000/api/videos')
-      .then((response) => {
-        setVideos(response.data.videos);
-      })
-      .catch((error) => {
-        console.error("Error fetching videos: ", error);
-      });
-  }, []);
-
   return (
     <div style={{ backgroundColor: '#f8f9fa', minHeight: '100vh', paddingTop: '20px' }}>
-      <Container>
-        <Row>
-          <Col>
-            <div className="text-center mb-5">
-              <h2 className="fw-bold">Welcome to the Student Dashboard</h2>
-              <p className="text-muted">
-                Manage your account, view details, and explore resources curated for you.
-              </p>
-            </div>
+      <Container className="d-flex flex-column justify-content-center align-items-center">
+        <Row className="w-100">
+          <Col className="text-center mb-5">
+            <h2 className="fw-bold">Welcome to the Student Dashboard</h2>
+            <p className="text-muted">
+              Manage your account, view details, and explore resources curated for you.
+            </p>
           </Col>
         </Row>
 
-        {/* Video Section */}
-        <Row className="mb-5">
-          <Col>
-            <h4 className="fw-bold text-center mb-4">Uploaded Videos</h4>
-            {videos.length > 0 ? (
-              <Row className="g-4">
-                {videos.map((video, index) => (
-                  <Col md={4} key={index}>
-                    <Card className="shadow-sm border-0 h-100">
-                      <Card.Body>
-                        <Card.Title className="text-primary">Video {index + 1}</Card.Title>
-                        <video width="100%" controls>
-                          <source src={`http://localhost:5000/uploads/${video}`} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            ) : (
-              <p className="text-center text-muted">No videos uploaded yet.</p>
-            )}
-          </Col>
-        </Row>
-
-        {/* Drives, Events, and Forum Section */}
-        <Row className="g-4">
-          <Col md={4}>
-            <Card className="text-center shadow-sm border-0 h-100">
+        {/* Drives, Events, Forum, and Student Experiences Section */}
+        <Row className="g-4 d-flex justify-content-center align-items-center">
+          <Col md={3}>
+            <Card className="text-center shadow-sm border-0 h-100 animated-card">
               <Card.Body>
                 <Card.Title className="text-success fw-bold">Drives</Card.Title>
                 <Card.Text className="text-muted">
-                  Explore and apply for available drives.
-                </Card.Text>
+                Explore for available drives and recruitment opportunities tailored for you. 
+                Stay updated on the latest drives, including internships, placements, and skill-based programs.
+                 Additionally, view past drives to get insights into previous opportunities and improve your application strategy.
+                 </Card.Text>
                 <Link to="/student-drive">
                   <Button variant="outline-success" className="w-100">
                     View Drives
@@ -75,13 +38,15 @@ function StudentDashboard() {
             </Card>
           </Col>
 
-          <Col md={4}>
-            <Card className="text-center shadow-sm border-0 h-100">
+          <Col md={3}>
+            <Card className="text-center shadow-sm border-0 h-100 animated-card">
               <Card.Body>
                 <Card.Title className="text-info fw-bold">Events/Hackathons</Card.Title>
                 <Card.Text className="text-muted">
-                  Stay updated with upcoming events and hackathons.
-                </Card.Text>
+                Stay updated with upcoming events, hackathons, and competitions that will help you showcase your skills and connect with industry experts.
+                 Participate in a variety of challenges and projects that can boost your career prospects. 
+                 Do not miss out on the chance to learn, collaborate, and win exciting prizes.
+                 </Card.Text>
                 <Link to="/events">
                   <Button variant="outline-info" className="w-100">
                     View Events
@@ -91,16 +56,35 @@ function StudentDashboard() {
             </Card>
           </Col>
 
-          <Col md={4}>
-            <Card className="text-center shadow-sm border-0 h-100">
+          <Col md={3}>
+            <Card className="text-center shadow-sm border-0 h-100 animated-card">
               <Card.Body>
                 <Card.Title className="text-warning fw-bold">Discussion Forum</Card.Title>
                 <Card.Text className="text-muted">
-                  Engage in discussions and collaborate with peers.
-                </Card.Text>
+                Engage in insightful discussions and collaborate with peers on various topics, from technology to career development. 
+                Share ideas, ask questions, and gain valuable knowledge from fellow students.
+                Join the community and enhance your learning experience through active participation.  </Card.Text>
                 <Link to="/discussion-forum">
                   <Button variant="outline-warning" className="w-100">
                     Join Forum
+                  </Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          {/* New Card for Student Experiences */}
+          <Col md={3}>
+            <Card className="text-center shadow-sm border-0 h-100 animated-card">
+              <Card.Body>
+                <Card.Title className="text-primary fw-bold">Student Experiences</Card.Title>
+                <Card.Text className="text-muted">
+                Watch inspiring experiences shared by fellow students, showcasing their journeys through internships, projects, and personal growth.
+                 Gain valuable insights into how your peers have navigated their academic and professional paths.
+                  Get motivated and learn from their success stories and challenges. </Card.Text>
+                <Link to="/student-videos">
+                  <Button variant="outline-primary" className="w-100">
+                    View Experiences
                   </Button>
                 </Link>
               </Card.Body>

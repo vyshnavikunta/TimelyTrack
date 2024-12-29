@@ -16,12 +16,18 @@ function NavbarComponent({ loggedIn, userType, onLogout }) {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">BVRITH</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">TimelyTrack</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto"> {/* Updated class to ms-auto */}
             {!loggedIn ? (  // When not logged in
               <>
+                <Nav.Item>
+                  <Link to="/about" className="nav-link text-white">About</Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Link to="/contact" className="nav-link text-white">Contact</Link>
+                </Nav.Item>
                 <Nav.Item>
                   <Link to="/student-login" className="nav-link text-white">Student Login</Link>
                 </Nav.Item>
