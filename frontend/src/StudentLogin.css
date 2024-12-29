@@ -1,0 +1,165 @@
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Background for the page */
+.login-background {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Light Gray Gradient */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    animation: fadeIn 1.5s ease-out;
+}
+
+/* Full height of the page */
+.full-height {
+    height: 100vh;
+    display: flex;
+}
+
+/* Left side image with floating effect */
+.home-page-image {
+    position: relative;
+    animation: moveImage s infinite linear;
+}
+
+.floating-image {
+    max-height: 80%;
+    width: auto;
+    border-radius: 15px;
+    animation: floatImage 5s ease-in-out infinite;
+}
+
+/* Animation for image floating */
+@keyframes floatImage {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Animations for fading in elements */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Styling for the form container with arched corners */
+.login-form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px; /* Arched corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    font-family: 'Roboto', sans-serif; /* Using Roboto font */
+}
+
+/* Hover effect for form container */
+.login-form-container:hover {
+    transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+/* Styling for form fields */
+.input-field {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    color: #333; /* Darker text color */
+    background-color: #f9f9f9; /* Lighter background for inputs */
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Styling for form labels */
+.form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left !important; /* Align left with higher specificity */
+    margin-bottom: 8px;
+    color: #333 !important; /* Darker label color */
+}
+
+/* Styling for the submit button */
+.submit-button {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+/* Styling for the remember me checkbox */
+.remember-checkbox {
+    font-size: 16px !important; /* Increased font size for larger checkbox */
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Styling for the checkbox itself (make it bigger) */
+.remember-checkbox input {
+    width: 20px !important; /* Make the checkbox a bit larger */
+    height: 20px !important; /* Make the checkbox a bit larger */
+    margin-right: 8px !important; /* Space between checkbox and label */
+}
+
+/* Align 'Remember Me' checkbox to the left, like the input fields */
+.remember-checkbox label {
+    font-size: 1rem !important; /* Adjust label font size */
+    font-weight: 500 !important;
+    color: #333 !important; /* Darker text color */
+}
+
+/* Styling for the links */
+.text-link-container p {
+    font-size: 14px;
+    color: #007bff;
+}
+
+.text-hover:hover {
+    color: #0056b3;
+}
+
+/* Styling for the password eye icon */
+.eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .full-height {
+        flex-direction: column !important;
+    }
+
+    .floating-image {
+        display: none !important; /* Hide the image on smaller screens */
+    }
+
+    .login-form-container {
+        padding: 30px !important;
+    }
+}

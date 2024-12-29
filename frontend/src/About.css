@@ -1,0 +1,106 @@
+/* Main Page Background */
+.main-background {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Light Gray Gradient */
+    padding: 50px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start; /* Move container to the top */
+    justify-content: center; /* Centering horizontally */
+  }
+  
+  /* About Container */
+  .about-container {
+    background: #ffffff; /* White Background for the Container */
+    padding: 30px 15px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 675px; /* Reduced container width to 90% of original */
+    width: 85%; /* Responsive adjustment */
+    margin-top: 30px; /* Adjust top margin */
+    animation: slideIn 1.2s ease-in-out;
+  }
+  
+  /* About Title */
+  .about-title {
+    font-size: 2.5rem; 
+    font-weight: 800;
+    color: #007bff;
+    animation: popIn 1s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  /* About Subtitle */
+  .about-subtitle {
+    font-size: 1.3rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+    font-style: italic;
+  }
+  
+  /* About Text */
+  .about-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #495057;
+    margin-bottom: 15px;
+    animation: fadeIn 1s ease-in forwards;
+  }
+  
+  .about-text .highlight {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  /* About Image */
+  .about-image {
+    width: 70%; 
+    max-width: 280px;
+    animation: bounceIn 1.5s ease-in-out;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes popIn {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-80px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  

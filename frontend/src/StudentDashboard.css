@@ -1,0 +1,87 @@
+/* src/components/StudentDashboard.css */
+
+/* Animation for cards */
+@keyframes cardAnimation {
+    0% {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .animated-card {
+    animation: cardAnimation 0.5s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .animated-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Centering the container */
+  .d-flex {
+    display: flex;
+  }
+  
+  .justify-content-center {
+    justify-content: center;
+  }
+  
+  .align-items-center {
+    align-items: center;
+  }
+  
+  /* Increased card height */
+  .card {
+    min-height: 350px; /* Increased height for better look */
+    background-size: cover; /* Ensures the background image fits the card */
+    background-position: center; /* Centers the image */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .card-footer {
+    margin-top: auto;
+    padding: 10px;
+  }
+  
+  /* Background images for each card */
+  .card:nth-child(1) {
+    background-image: url('https://example.com/drive-background.jpg');
+  }
+  
+  .card:nth-child(2) {
+    background-image: url('https://example.com/events-background.jpg');
+  }
+  
+  .card:nth-child(3) {
+    background-image: url('https://example.com/forum-background.jpg');
+  }
+  
+  .card:nth-child(4) {
+    background-image: url('https://example.com/experiences-background.jpg');
+  }
+  
+  /* Styling the card buttons */
+  button {
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  

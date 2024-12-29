@@ -1,0 +1,44 @@
+/* Custom styles for drive cards */
+.drive-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .drive-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .drive-card .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #007bff;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    color: #495057;
+  }
+  
+  .card-body .btn {
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+  
+  .text-center {
+    font-size: 1.1rem;
+  }
+  
+  .alert {
+    font-size: 1rem;
+  }
+  
+  /* Make buttons rounded with better padding */
+  .btn-primary {
+    border-radius: 25px;
+    padding: 12px 30px;
+  }
+  

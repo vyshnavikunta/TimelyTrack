@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavbarComponent from './components/NavbarComponent';
 import Footer from './components/Footer';
 import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
 import StudentLogin from './components/StudentLogin';
 import PlacementLogin from './components/PlacementLogin';
 import AdminLogin from './components/AdminLogin';
@@ -19,6 +21,7 @@ import StudentDrive from './components/StudentDrive';
 import DiscussionForum from './components/DiscussionForum';
 import StudentExperience from './components/StudentExperience';
 import UploadSE from './components/UploadSE';
+import StudentVideos from './components/StudentVideos';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -71,6 +74,8 @@ function App() {
         <div className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/student-login" element={<StudentLogin onLogin={() => handleLogin('student')} />} />
             <Route path="/placement-login" element={<PlacementLogin onLogin={() => handleLogin('placement')} />} />
             <Route path="/admin-login" element={<AdminLogin />} />
@@ -84,7 +89,8 @@ function App() {
             <Route path="/discussion-forum" element={<DiscussionForum />} />
             <Route path="/student-experience" element={userType === 'placement' ? <StudentExperience /> : <div className="text-center mt-5">Unauthorized Access</div>} />
             <Route path="/upload-student-experience" element={<UploadSE /> } />
-            
+            <Route path="/student-videos" element={<StudentVideos />} />
+       
           </Routes>
         </div>
 

@@ -1,0 +1,86 @@
+/* Background for the page */
+.register-background {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Ensure no extra padding */
+}
+
+/* Full height of the page */
+.full-height {
+    height: 100vh;
+    display: flex;
+    align-items: center;  /* Vertically centers the form */
+    justify-content: center; /* Horizontally centers the form */
+}
+
+/* Styling for the form container with arched corners */
+.register-form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px; /* Arched corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    max-width: 1200px !important; /* Increased form width and added !important */
+    width: 100% !important; /* Ensures responsiveness */
+    margin: 0 auto; /* Centers the container */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+/* Hover effect for form container */
+.register-form-container:hover {
+    transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+/* Styling for form fields */
+.input-field {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Styling for form labels */
+.form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left !important;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Styling for the submit button */
+.submit-button {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Eye icon for password visibility toggle */
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

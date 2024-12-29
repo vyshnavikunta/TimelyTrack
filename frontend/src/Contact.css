@@ -1,0 +1,106 @@
+/* Contact Page Background */
+.contact-background {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Same background as About Page */
+    padding: 30px 0; /* Reduced padding to decrease height */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the container */
+  }
+  
+  /* Contact Container */
+  .contact-container {
+    background: #ffffff; /* White Background for the Form */
+    padding: 40px 30px; /* Increased horizontal padding to widen the container */
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; /* Increased container width */
+    width: 90%; /* Responsive width */
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  /* Contact Title */
+  .contact-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff; /* Blue color same as About Page */
+    animation: slideInFromTop 1s ease-in-out;
+    text-transform: uppercase;
+  }
+  
+  /* Contact Subtitle */
+  .contact-subtitle {
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-bottom: 30px;
+    animation: fadeIn 1.5s ease-in-out;
+    font-style: italic;
+  }
+  
+  /* Form Inputs */
+  .form-input {
+    font-size: 1rem;
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #007bff; /* Blue color for inputs */
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Focus effect on inputs */
+  .form-input:focus {
+    border-color: #0056b3; /* Darker blue when focused */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Submit Button */
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3; /* Darker blue for hover effect */
+    border-color: #0056b3;
+  }
+  
+  /* Form Column (responsive styling) */
+  .form-column {
+    animation: slideInFromBottom 1.5s ease-in-out;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInFromTop {
+    0% {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInFromBottom {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
