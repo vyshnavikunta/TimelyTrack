@@ -1,14 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+// src/components/AdminVideos.js
 
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; 
 function AdminVideos() {
-  const [videos, setVideos] = useState([
-    { id: 1, title: 'Student Experience 1', url: 'video1.mp4' },
-    { id: 2, title: 'Student Experience 2', url: 'video2.mp4' },
-    { id: 3, title: 'Student Experience 3', url: 'video3.mp4' }
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/api/videos')
+      .then((response) => {
+        setVideos(response.data.videos);
+      })
+      .catch((error) => {
+        console.error("Error fetching videos: ", error);
+      });
+  }, []);
+
   const [showUploadForm, setShowUploadForm] = useState(false);
 
   // Video upload form states
@@ -23,17 +32,17 @@ function AdminVideos() {
     setShowUploadForm(!showUploadForm);
   };
 
-  // Handle video change
-  const handleVideoChange = (e) => {
-    setVideo(e.target.files[0]);
-  };
+    // Handle video change
+    const handleVideoChange = (e) => {
+      setVideo(e.target.files[0]);
+    };
+  
+    // Handle title change
+    const handleTitleChange = (e) => {
+      setTitle(e.target.value);
+    };
 
-  // Handle title change
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  // Handle video upload submission
+    // Handle video upload submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!video || !title) {
@@ -70,22 +79,36 @@ function AdminVideos() {
       setUploading(false);
     }
   };
-
-  // Simulate video deletion (replace with actual backend logic)
-  const handleDeleteVideo = (videoId) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setVideos(videos.filter((video) => video.id !== videoId));
-      setIsLoading(false);
-    }, 1000);
+const handleDelete = (video) => {
+    console.log("Video to be deleted: ", video);  // Log the video object
+    axios
+      .delete(`http://localhost:5000/api/videos/${video}`)
+      .then(() => {
+        // Update the video list after successful deletion
+        setVideos(videos.filter((v) => v !== video));
+      })
+      .catch((error) => {
+        console.error("Error deleting video: ", error);
+      });
   };
+  
 
   return (
-    <div className="container mt-5">
-      <h3 className="text-center text-primary mb-4">Admin Videos</h3>
+    <div style={{ backgroundColor: '#f8f9fa', minHeight: '100vh', paddingTop: '20px' }}>
+      <Container>
+        <Row>
+          <Col>
+            <div className="text-center mb-5">
+              <h2 className="fw-bold">Admin Videos</h2>
+              <p className="text-muted">
+                Manage videos uploaded by students.
+              </p>
+            </div>
+          </Col>
+        </Row>
 
-      {/* Upload Video Option */}
-      <button className="btn btn-primary mb-4" onClick={toggleUploadForm}>
+  {/* Upload Video Option */}
+  <button className="btn btn-primary mb-4" onClick={toggleUploadForm}>
         {showUploadForm ? 'Cancel Upload' : 'Upload Video'}
       </button>
 
@@ -120,37 +143,41 @@ function AdminVideos() {
         </form>
       )}
 
-      {/* Display Message */}
-      {message && <div className="alert alert-info text-center">{message}</div>}
+{/* Display Message */}
+{message && <div className="alert alert-info text-center">{message}</div>}
 
-      {/* Display Available Student Videos */}
-      {isLoading ? (
-        <div className="text-center">Deleting video...</div>
-      ) : (
-        <div className="row">
-          {videos.length === 0 ? (
-            <div className="text-center">No videos available.</div>
-          ) : (
-            videos.map((video) => (
-              <div key={video.id} className="col-md-6 col-lg-4 mb-4">
-                <div className="card shadow-sm">
-                  <div className="card-body">
-                    <h5 className="card-title">{video.title}</h5>
-                    <div>
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => handleDeleteVideo(video.id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      )}
+        {/* Video Section */}
+        <Row className="mb-5">
+          <Col>
+            {videos.length > 0 ? (
+              <Row className="g-4">
+                {videos.map((video, index) => (
+                  <Col md={4} key={index}>
+                    <Card className="shadow-sm border-0 h-100">
+                      <Card.Body>
+                        <Card.Title className="text-primary">Video {index + 1}</Card.Title>
+                        <video width="100%" controls>
+                          <source src={`http://localhost:5000/uploads/${video}`} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                        <Button
+                          variant="danger"
+                          className="mt-3 w-100"
+                          onClick={() => handleDelete(video)}
+                        >
+                          Delete Video
+                        </Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <p className="text-center text-muted">No videos uploaded yet.</p>
+            )}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
