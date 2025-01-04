@@ -22,6 +22,8 @@ import DiscussionForum from './components/DiscussionForum';
 import StudentExperience from './components/StudentExperience';
 import UploadSE from './components/UploadSE';
 import StudentVideos from './components/StudentVideos';
+import AdminDrives from './components/AdminDrives';
+import AdminVideos from './components/AdminVideos';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -90,7 +92,9 @@ function App() {
             <Route path="/student-experience" element={userType === 'placement' ? <StudentExperience /> : <div className="text-center mt-5">Unauthorized Access</div>} />
             <Route path="/upload-student-experience" element={<UploadSE /> } />
             <Route path="/student-videos" element={<StudentVideos />} />
-       
+            <Route path="/admin-drives" element={<AdminDrives />} />
+            <Route path="/admin-videos" element={<AdminVideos />} />
+         
           </Routes>
         </div>
 
