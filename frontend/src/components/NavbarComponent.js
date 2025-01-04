@@ -32,11 +32,9 @@ function NavbarComponent({ loggedIn, userType, onLogout }) {
                   <Link to="/student-login" className="nav-link text-white">Student Login</Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to="/placement-login" className="nav-link text-white">Placement Login</Link>
+                  <Link to="/placement-login" className="nav-link text-white">Admin Login</Link>
                 </Nav.Item>
-                <Nav.Item>
-                  <Link to="/admin-login" className="nav-link text-white">Admin Login</Link>
-                </Nav.Item>
+                
               </>
             ) : (  // When logged in
               <>
@@ -51,9 +49,7 @@ function NavbarComponent({ loggedIn, userType, onLogout }) {
                 {userType === 'placement' && (
                   <>
                     
-                    <Nav.Item>
-                      <Link to="/profile" className="nav-link text-white">Profile</Link>
-                    </Nav.Item>
+                    
                   </>
                 )}
                 <Nav.Item>

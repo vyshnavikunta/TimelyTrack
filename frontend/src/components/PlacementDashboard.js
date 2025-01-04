@@ -1,47 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function PlacementDashboard() {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState('dashboard');
   const navigate = useNavigate();
 
-  // Use effect hook to fetch drives if needed (for now, we're not using it in this view)
-  useEffect(() => {
-    // Fetch drives only if needed, otherwise this can be removed for now
-  }, []);
-
-  const handleUploadDrives = () => {
-    setSelectedOption('uploadDrives');
-    navigate('/upload-drive');
-  };
-
-  const handleStudentExperience = () => {
-    setSelectedOption('studentExperience');
-    navigate('/upload-student-experience');
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    if (option === 'drives') {
+      navigate('/admin-drives');
+    } else if (option === 'videos') {
+      navigate('/admin-videos'); // Navigate to video upload page
+    }
   };
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Placement Dashboard</h1>
+      <h2 className="text-center text-primary mb-4">Placement Dashboard</h2>
 
-      {/* Buttons to toggle between upload drives and student experience */}
+      {/* Dashboard Options */}
       <div className="d-flex justify-content-center mb-4">
         <button
-          className={`btn btn-primary mx-2 ${selectedOption === 'uploadDrives' ? 'active' : ''}`}
-          onClick={handleUploadDrives}
+          className={`btn btn-primary mx-2 ${selectedOption === 'drives' ? 'active' : ''}`}
+          onClick={() => handleOptionClick('drives')}
         >
-          Upload Drives
+          Drives
         </button>
         <button
-          className={`btn btn-secondary mx-2 ${selectedOption === 'studentExperience' ? 'active' : ''}`}
-          onClick={handleStudentExperience}
+          className={`btn btn-secondary mx-2 ${selectedOption === 'hackathons' ? 'active' : ''}`}
+          onClick={() => handleOptionClick('hackathons')}
         >
-          Students Experiences
+          Hackathons/Events
+        </button>
+        <button
+          className={`btn btn-success mx-2 ${selectedOption === 'videos' ? 'active' : ''}`}
+          onClick={() => handleOptionClick('videos')}
+        >
+          Videos
         </button>
       </div>
-
-      
     </div>
   );
 }

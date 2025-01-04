@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function UploadStudentExperience() {
   const [video, setVideo] = useState(null);
+  const [title, setTitle] = useState('');  // State to store the video title
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate
@@ -12,21 +13,26 @@ function UploadStudentExperience() {
     setVideo(e.target.files[0]);
   };
 
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!video) {
-      setMessage('Please select a video file.');
+    if (!video || !title) {
+      setMessage('Please select a video file and provide a title.');
       return;
     }
 
     const formData = new FormData();
     formData.append('video', video);
+    formData.append('title', title);  // Append the title to the form data
 
     try {
       setUploading(true);
       setMessage('');
-      
-      // Send the video file to the backend
+
+      // Send the video and title to the backend
       const response = await axios.post('http://localhost:5000/api/upload-video', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -35,7 +41,7 @@ function UploadStudentExperience() {
 
       if (response.data.success) {
         setMessage('Video uploaded successfully!');
-        
+
         // Wait for 3 seconds, then navigate back to the dashboard
         setTimeout(() => {
           navigate('/dashboard'); // Adjust the path if needed
@@ -56,15 +62,29 @@ function UploadStudentExperience() {
       <h2 className="text-center mb-4">Upload Student Experience Video</h2>
 
       <form onSubmit={handleSubmit} className="d-flex flex-column align-items-center">
-        <input 
-          type="file" 
-          accept="video/*" 
-          onChange={handleVideoChange} 
+        {/* Input for video title */}
+        <input
+          type="text"
+          placeholder="Enter video title"
+          value={title}
+          onChange={handleTitleChange}
           className="mb-3"
+          required
         />
-        <button 
-          type="submit" 
-          className="btn btn-primary" 
+
+        {/* Input for selecting video file */}
+        <input
+          type="file"
+          accept="video/*"
+          onChange={handleVideoChange}
+          className="mb-3"
+          required
+        />
+
+        {/* Submit button */}
+        <button
+          type="submit"
+          className="btn btn-primary"
           disabled={uploading}
         >
           {uploading ? 'Uploading...' : 'Upload Video'}
