@@ -28,6 +28,7 @@ function StudentLogin({ onLogin }) {
       if (response.ok) {
         alert("Login successful!");
         localStorage.setItem('token', result.token);
+        
         onLogin('student');
         navigate("/dashboard");
       } else {

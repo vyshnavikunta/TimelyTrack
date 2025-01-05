@@ -1,18 +1,8 @@
-import React, { useState } from 'react';
+import React, {  useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function UploadDrive() {
-  const [formData, setFormData] = useState({
-    companyName: '',
-    driveDate: '',
-    type: '',
-    ctc: '',
-    status: {
-      appliedCount: 0,  // Initialized to 0
-      hiredCount: 0,    // Initialized to 0
-    },
-  });
+function UploadDrive({ formData, setFormData, fetchDrives, editDriveId }) {
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -25,18 +15,49 @@ function UploadDrive() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append('companyName', formData.companyName);
+    data.append('driveDate', formData.driveDate);
+    data.append('type', formData.type);
+    data.append('ctc', formData.ctc);
+    data.append('eligibleCount', formData.eligibleCount);
+    data.append('appliedCount', formData.appliedCount);
+    data.append('hiredCount', formData.hiredCount);
+    data.append('companyLink', formData.companyLink);
+
     try {
-      const response = await axios.post('http://localhost:5000/api/drives', formData);
-      console.log('Drive uploaded successfully:', response.data);
-      navigate('/dashboard'); // Navigate back to the dashboard or a confirmation page
+      // If we're editing an existing drive, make a PUT request.
+      if (editDriveId) {
+        const response = await axios.put(`http://localhost:5000/api/drives/${editDriveId}`, data);
+        console.log('Drive updated successfully:', response.data);
+      } else {
+        // If it's a new drive, make a POST request.
+        const response = await axios.post('http://localhost:5000/api/drives', data);
+        console.log('Drive uploaded successfully:', response.data);
+      }
+
+      fetchDrives(); // Re-fetch the drives list
+      navigate('/dashboard'); // Navigate to the dashboard or confirmation page
     } catch (error) {
-      console.error('Error uploading drive:', error);
+      console.error('Error uploading or updating drive:', error);
     }
   };
 
+  useEffect(() => {
+    if (editDriveId) {
+      // If we are in edit mode, fetch the drive details and set the form data
+      axios.get(`http://localhost:5000/api/drives/${editDriveId}`)
+        .then((response) => {
+          setFormData(response.data); // Set the form data with the existing drive details
+        })
+        .catch((error) => {
+          console.error('Error fetching drive data for edit:', error);
+        });
+    }
+  }, [editDriveId, setFormData]);
+
   return (
     <div className="container mt-5" style={{ maxWidth: '600px' }}>
-      <h1 className="text-center mb-4 fw-bold text-primary">Upload Drive Details</h1>
       <form onSubmit={handleSubmit} className="card shadow-lg p-4 border-0 rounded-3">
         <div className="mb-3">
           <label htmlFor="companyName" className="form-label fw-semibold">
@@ -100,6 +121,71 @@ function UploadDrive() {
             onChange={handleInputChange}
             className="form-control shadow-sm"
             placeholder="Enter CTC amount"
+            required
+          />
+        </div>
+
+        {/* New fields for eligible count, applied count, hired count, and company URL */}
+        <div className="mb-3">
+          <label htmlFor="eligibleCount" className="form-label fw-semibold">
+            Eligible Count
+          </label>
+          <input
+            type="number"
+            id="eligibleCount"
+            name="eligibleCount"
+            value={formData.eligibleCount}
+            onChange={handleInputChange}
+            className="form-control shadow-sm"
+            placeholder="Enter eligible count"
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="appliedCount" className="form-label fw-semibold">
+            Applied Count
+          </label>
+          <input
+            type="number"
+            id="appliedCount"
+            name="appliedCount"
+            value={formData.appliedCount}
+            onChange={handleInputChange}
+            className="form-control shadow-sm"
+            placeholder="Enter applied count"
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="hiredCount" className="form-label fw-semibold">
+            Hired Count
+          </label>
+          <input
+            type="number"
+            id="hiredCount"
+            name="hiredCount"
+            value={formData.hiredCount}
+            onChange={handleInputChange}
+            className="form-control shadow-sm"
+            placeholder="Enter hired count"
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="companyLink" className="form-label fw-semibold">
+            Company Link
+          </label>
+          <input
+            type="url"
+            id="companyLink"
+            name="companyLink"
+            value={formData.companyLink}
+            onChange={handleInputChange}
+            className="form-control shadow-sm"
+            placeholder="Enter company link"
             required
           />
         </div>

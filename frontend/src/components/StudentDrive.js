@@ -38,6 +38,11 @@ function StudentDrive() {
     fetchDrives();
   }, []);
 
+  // Handle click to open company URL in new tab
+  const handleCardClick = (url) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <div>
       <Container className="mt-5">
@@ -72,17 +77,32 @@ function StudentDrive() {
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                   onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  onClick={() => handleCardClick(drive.companyUrl)} // Open URL on click
                 >
                   <Card.Body>
-                    <Card.Title className="h4 text-white font-weight-bold">{drive.companyName}</Card.Title>
-                    <Card.Text className="mb-2 text-white">
+                    <Card.Title
+                      className="h4 text-black font-weight-bold text-center mb-3"
+                      style={{ marginBottom: '15px' }} // Add some gap below the company name
+                    >
+                      {drive.companyName}
+                    </Card.Title>
+                    <Card.Text className="mb-2 text-black">
                       <strong>Drive Date:</strong> {new Date(drive.driveDate).toLocaleDateString()}
                     </Card.Text>
-                    <Card.Text className="mb-2 text-white">
+                    <Card.Text className="mb-2 text-black">
                       <strong>Type:</strong> {drive.type}
                     </Card.Text>
-                    <Card.Text className="mb-4 text-white">
+                    <Card.Text className="mb-2 text-black">
                       <strong>CTC:</strong> ₹{drive.ctc} LPA
+                    </Card.Text>
+                    <Card.Text className="mb-2 text-black">
+                      <strong>Eligibility:</strong> {drive.eligible}
+                    </Card.Text>
+                    <Card.Text className="mb-2 text-black">
+                      <strong>Applied Count:</strong> {drive.appliedCount}
+                    </Card.Text>
+                    <Card.Text className="mb-2 text-black">
+                      <strong>Hired Count:</strong> {drive.hiredCount}
                     </Card.Text>
                   </Card.Body>
                 </Card>
