@@ -55,7 +55,15 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign({ id: student._id, usn: student.usn }, "secretKey", { expiresIn: "1h" });
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      student: {
+        id: student._id,
+        usn: student.usn,
+        fullname: student.fullname
+      }
+    });
   } catch (error) {
     console.error("Login error: ", error);
     res.status(500).json({ message: "An error occurred during login. Please try again." });
@@ -66,8 +74,8 @@ router.post("/login", async (req, res) => {
 // Placeholder for placement officer data (this would typically be a database)
 const placementOfficers = [
     {
-      email: 'placement@bvrith.edu.in',
-      password: bcrypt.hashSync('placementlogin123', 10), // hashed password
+      email: 'admin@bvrithyderabad.edu.in',
+      password: bcrypt.hashSync('adminlogin123', 10), // hashed password
     },
   ];
   
