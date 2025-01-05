@@ -9,7 +9,6 @@ import About from './components/About';
 import Contact from './components/Contact';
 import StudentLogin from './components/StudentLogin';
 import PlacementLogin from './components/PlacementLogin';
-import AdminLogin from './components/AdminLogin';
 import Placements from './components/Placements';
 import HackathonsEvents from './components/HackathonsEvents';
 import Signup from './components/Signup';
@@ -19,11 +18,11 @@ import PlacementDashboard from './components/PlacementDashboard';
 import UploadDrive from './components/UploadDrive';
 import StudentDrive from './components/StudentDrive';
 import DiscussionForum from './components/DiscussionForum';
-import StudentExperience from './components/StudentExperience';
 import UploadSE from './components/UploadSE';
 import StudentVideos from './components/StudentVideos';
 import AdminDrives from './components/AdminDrives';
 import AdminVideos from './components/AdminVideos';
+import StudentProfile from './components/StudentProfile';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -80,7 +79,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/student-login" element={<StudentLogin onLogin={() => handleLogin('student')} />} />
             <Route path="/placement-login" element={<PlacementLogin onLogin={() => handleLogin('placement')} />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/placements" element={<Placements />} />
             <Route path="/hackathons-events" element={<HackathonsEvents />} />
             <Route path="/signup" element={<Signup />} />
@@ -89,12 +87,11 @@ function App() {
             <Route path="/upload-drive" element={userType === 'placement' ? <UploadDrive /> : <div className="text-center mt-5">Unauthorized Access</div>} />
             <Route path="/student-drive" element={userType === 'student' ? <StudentDrive /> : <div className="text-center mt-5">Unauthorized Access</div>} />
             <Route path="/discussion-forum" element={<DiscussionForum />} />
-            <Route path="/student-experience" element={userType === 'placement' ? <StudentExperience /> : <div className="text-center mt-5">Unauthorized Access</div>} />
-            <Route path="/upload-student-experience" element={<UploadSE /> } />
+           <Route path="/upload-student-experience" element={<UploadSE /> } />
             <Route path="/student-videos" element={<StudentVideos />} />
             <Route path="/admin-drives" element={<AdminDrives />} />
             <Route path="/admin-videos" element={<AdminVideos />} />
-         
+            <Route path="/student-profile" element={<StudentProfile />} />
           </Routes>
         </div>
 

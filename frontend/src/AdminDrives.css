@@ -1,0 +1,132 @@
+/* Container Styles */
+.container {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading */
+  h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Button Styles */
+  .btn {
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .btn-primary {
+    background-color: #3498db;
+    border: none;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2980b9;
+  }
+  
+  .btn-warning {
+    background-color: #f39c12;
+    border: none;
+    color: white;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e67e22;
+  }
+  
+  .btn-danger {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Form Styles */
+  form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-control, .form-select {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .form-label {
+    font-weight: 600;
+    color: #34495e;
+  }
+  
+  /* Card Styles */
+  .card {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    font-weight: 700;
+  }
+  
+  .card-body {
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .card a {
+    text-decoration: none;
+    color: #3498db;
+  }
+  
+  .card a:hover {
+    text-decoration: underline;
+  }
+  
+  .row {
+    margin-top: 20px;
+  }
+  
+  .col-md-6, .col-lg-4 {
+    padding-bottom: 20px;
+  }
+  
+  .mb-4 {
+    margin-bottom: 20px;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .card {
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .container {
+      padding: 20px;
+    }
+    h3 {
+      font-size: 1.5rem;
+    }
+  }
+  

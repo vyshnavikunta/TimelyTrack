@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
- 
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+   {/* Wrap your App with Provider */}
+      <App />
+    
   </React.StrictMode>
 );
