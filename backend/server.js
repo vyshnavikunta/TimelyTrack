@@ -2,8 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require('path');
-
 const multer = require('multer');
+const fs = require('fs');
+const Video = require('./models/videoModel'); // Import the Video model
 
 require('dotenv').config();  // Load .env variables
 
@@ -22,46 +23,72 @@ const driveRoutes = require('./routes/driveRoutes');
 const postRoutes = require('./routes/postRoutes');
 
 // Use routes
-
 app.use('/api', authRoutes);
 app.use('/api/drives', driveRoutes);
 app.use('/api', postRoutes);
-
 
 // Serve static files (videos) from 'uploads' directory
 app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Route to fetch videos
-app.get('/api/videos', (req, res) => {
-  const videoDirectory = './uploads';
-  fs.readdir(videoDirectory, (err, files) => {
-    if (err) {
-      return res.status(500).json({ message: 'Unable to fetch videos' });
-    }
-
-    // Filter only video files, assuming they're either mp4 or other video extensions
-    const videoFiles = files.filter(file => file.endsWith('.mp4') || file.endsWith('.mov'));
-
-    res.status(200).json({ videos: videoFiles });
-  });
+// Route to fetch videos from database
+app.get('/api/videos', async (req, res) => {
+  try {
+    const videos = await Video.find(); // Fetch video metadata from MongoDB
+    res.status(200).json({ videos });
+  } catch (err) {
+    res.status(500).json({ message: 'Unable to fetch videos', error: err });
+  }
 });
 
-// Route to delete video
-app.delete('/api/videos/:filename', (req, res) => {
+// Route to update video title
+app.put('/api/videos/:filename', async (req, res) => {
+  const { filename } = req.params;
+  const { title } = req.body;
+  
+  try {
+    // Find the video by filename and update its title
+    const video = await Video.findOneAndUpdate(
+      { filename: filename },
+      { title: title },
+      { new: true } // Return the updated video document
+    );
+
+    if (!video) {
+      return res.status(404).json({ message: 'Video not found' });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Video title updated successfully',
+      video: video
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating video title', error: err });
+  }
+});
+
+// Route to delete video from both server and database
+app.delete('/api/videos/:filename', async (req, res) => {
   const { filename } = req.params;
   const videoPath = path.join(__dirname, 'uploads', filename);
 
-  // Check if the file exists
-  fs.unlink(videoPath, (err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error deleting video.' });
-    }
-    res.status(200).json({ message: 'Video deleted successfully.' });
-  });
-});
+  try {
+    // Remove video metadata from MongoDB
+    await Video.findOneAndDelete({ filename });
 
+    // Delete the video file from the server
+    fs.unlink(videoPath, (err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Error deleting video file.' });
+      }
+      res.status(200).json({ message: 'Video deleted successfully.' });
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting video from database', error: err });
+  }
+});
 
 // Set up storage engine for Multer
 const storage = multer.diskStorage({
@@ -73,38 +100,49 @@ const storage = multer.diskStorage({
   },
 });
 
-
 // Initialize multer with the storage configuration
 const upload = multer({ storage: storage });
 
 // Create a folder for storing the uploaded videos
-const fs = require('fs');
 const uploadsDir = './uploads';
-
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
 // Handle the video upload
-app.post('/api/upload-video', upload.single('video'), (req, res) => {
+app.post('/api/upload-video', upload.single('video'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: 'No file uploaded.' });
   }
 
-  res.json({
-    success: true,
-    message: 'Video uploaded successfully!',
-    file: req.file, // You can send back the file path or URL here
-  });
-});
+  const { title } = req.body; // Get title from the request body
+  const filename = req.file.filename; // Get the filename from the uploaded file
 
+  try {
+    // Save the video metadata (title and filename) to the database
+    const newVideo = new Video({
+      title,
+      filename
+    });
+
+    await newVideo.save(); // Save the new video document
+
+    res.json({
+      success: true,
+      message: 'Video uploaded successfully!',
+      video: newVideo // Return the video metadata
+    });
+  } catch (err) {
+    console.error('Error uploading video:', err);
+    res.status(500).json({ success: false, message: 'Error uploading video.' });
+  }
+});
 
 // Server Start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
 
 
 
@@ -488,4 +526,3 @@ app.listen(PORT, () => {
 // app.listen(PORT, () => {
 //   console.log('Server is running on port ${PORT}');
 // });
-
